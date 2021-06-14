@@ -5,15 +5,23 @@ import 'package:project_management/src/blocs/note/create_note_bloc.dart';
 import 'package:project_management/src/blocs/note/create_note_state.dart';
 import 'package:project_management/src/blocs/note/notes_bloc.dart';
 import 'package:project_management/src/blocs/note/notes_event.dart';
+import 'package:project_management/src/repository/note_repository.dart';
 
-class CreateNotePage extends StatelessWidget {
-  const CreateNotePage({Key? key}) : super(key: key);
+class CreateNotePage extends StatefulWidget {
+  CreateNotePage({Key? key}) : super(key: key);
+
+  @override
+  _CreateNotePageState createState() => _CreateNotePageState();
+}
+
+class _CreateNotePageState extends State<CreateNotePage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(title: const Text('Create Note')),
       body: BlocProvider(
-        create: (context) => NoteBloc(),
+        create: (context) => CreateNoteBloc(),
         child: _NoteForm(),
       ),
     );
@@ -34,8 +42,8 @@ class CreateNotePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _usernameField(),
-                _passwordField(),
+                _subjectField(),
+                _descriptionField(),
                 _NoteButton(),
               ],
             ),
@@ -44,15 +52,15 @@ class CreateNotePage extends StatelessWidget {
     return blocListener;
   }
 
-  Widget _usernameField() {
+  Widget _subjectField() {
     return BlocBuilder<CreateNoteBloc, CreateNoteState>(builder: (context, state) {
       return TextFormField(
         decoration: InputDecoration(
           icon: Icon(Icons.person),
-          hintText: 'Username',
+          hintText: 'subject',
         ),
         validator: (value) =>
-            state.isValidSubject ? null : 'Username is too short',
+            state.isValidSubject ? null : 'subject is too short',
         onChanged: (value) => context.read<CreateNoteBloc>().add(
               NoteSubjectChanged(noteSubject: value),
             ),
@@ -60,16 +68,16 @@ class CreateNotePage extends StatelessWidget {
     });
   }
 
-  Widget _passwordField() {
+  Widget _descriptionField() {
     return BlocBuilder<CreateNoteBloc, CreateNoteState>(builder: (context, state) {
       return TextFormField(
         obscureText: true,
         decoration: InputDecoration(
           icon: Icon(Icons.security),
-          hintText: 'Password',
+          hintText: 'description',
         ),
         validator: (value) =>
-            state.isValidDescription ? null : 'Password is too short',
+            state.isValidDescription ? null : 'description is too short',
         onChanged: (value) => context.read<CreateNoteBloc>().add(
               NoteDescriptionChanged(noteDescription: value),
             ),
