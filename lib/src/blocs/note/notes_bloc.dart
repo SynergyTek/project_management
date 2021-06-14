@@ -10,9 +10,9 @@ import 'notes_state.dart';
 const noteLimit = 20;
 
 class NoteBloc extends Bloc<NoteEvent, NoteState> {
-  NoteBloc({required this.httpClient}) : super(const NoteState());
+  NoteBloc() : super(const NoteState());
 
-  final http.Client httpClient;
+  // final http.Client httpClient;
 
   @override
   Stream<Transition<NoteEvent, NoteState>> transformEvents(
@@ -52,7 +52,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
   Future<List<Note>> _fetchNotes([int startIndex = 0]) async {
     Uri url = Uri.parse(
         'https://webapidev.aitalkx.com/cms/NtsNote/ReadNoteDashBoardGridData?templateCode=MobileTestingNote');
-    final response = await httpClient.get(url);
+    final response = await http.Client().get(url);
     // final response = await httpClient.get(
     //   Uri.https(
     //     'jsonplaceholder.typicode.com',
