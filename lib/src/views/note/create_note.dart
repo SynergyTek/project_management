@@ -1,11 +1,11 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_management/src/blocs/form_submission_status.dart';
 import 'package:project_management/src/blocs/note/create_note_bloc.dart';
 import 'package:project_management/src/blocs/note/create_note_state.dart';
-import 'package:project_management/src/blocs/note/notes_bloc.dart';
 import 'package:project_management/src/blocs/note/notes_event.dart';
-import 'package:project_management/src/repository/note_repository.dart';
+import 'package:project_management/theme/theme.dart';
 
 class CreateNotePage extends StatefulWidget {
   CreateNotePage({Key? key}) : super(key: key);
@@ -15,50 +15,61 @@ class CreateNotePage extends StatefulWidget {
 }
 
 class _CreateNotePageState extends State<CreateNotePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Create Note')),
+      appBar: AppBar(title: const Text('Create Note')),
       body: BlocProvider(
         create: (context) => CreateNoteBloc(),
-        child: _NoteForm(),
+        child: _noteForm(),
       ),
     );
   }
 
-    Widget _NoteForm() {
+  Widget _noteForm() {
     var blocListener = BlocListener<CreateNoteBloc, CreateNoteState>(
         listener: (context, state) {
-          final formStatus = state.formStatus;
+          //  final formStatus = state.formStatus;
           // if (formStatus is SubmissionFailed) {
           //   _showSnackBar(context, formStatus.exception.toString());
           // }
         },
         child: Form(
           // key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _subjectField(),
-                _descriptionField(),
-                _NoteButton(),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              noteWidget(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: _subjectField(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: _descriptionField(),
+              ),
+              _noteButton(),
+            ],
           ),
         ));
     return blocListener;
   }
 
+  Widget noteWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 40,
+        decoration: containerBoxDecoration(),
+      ),
+    );
+  }
+
   Widget _subjectField() {
-    return BlocBuilder<CreateNoteBloc, CreateNoteState>(builder: (context, state) {
+    return BlocBuilder<CreateNoteBloc, CreateNoteState>(
+        builder: (context, state) {
       return TextFormField(
-        decoration: InputDecoration(
-          icon: Icon(Icons.person),
-          hintText: 'subject',
-        ),
+        decoration: inputDecoration(Icons.subject, 'Subject'),
         validator: (value) =>
             state.isValidSubject ? null : 'subject is too short',
         onChanged: (value) => context.read<CreateNoteBloc>().add(
@@ -69,13 +80,11 @@ class _CreateNotePageState extends State<CreateNotePage> {
   }
 
   Widget _descriptionField() {
-    return BlocBuilder<CreateNoteBloc, CreateNoteState>(builder: (context, state) {
+    return BlocBuilder<CreateNoteBloc, CreateNoteState>(
+        builder: (context, state) {
       return TextFormField(
         obscureText: true,
-        decoration: InputDecoration(
-          icon: Icon(Icons.security),
-          hintText: 'description',
-        ),
+        decoration: inputDecoration(Icons.description, 'Description'),
         validator: (value) =>
             state.isValidDescription ? null : 'description is too short',
         onChanged: (value) => context.read<CreateNoteBloc>().add(
@@ -85,12 +94,13 @@ class _CreateNotePageState extends State<CreateNotePage> {
     });
   }
 
-  Widget _NoteButton() {
-    return BlocBuilder<CreateNoteBloc
-    , CreateNoteState>(builder: (context, state) {
+  Widget _noteButton() {
+    return BlocBuilder<CreateNoteBloc, CreateNoteState>(
+        builder: (context, state) {
       return state.formStatus is FormSubmitting
           ? CircularProgressIndicator()
           : ElevatedButton(
+              // style: elevatedButtonStyle(),
               onPressed: () {
                 // if (_formKey.currentState.validate()) {
                 //   context.read<NoteBloc>().add(NoteSubmitted());
@@ -105,13 +115,11 @@ class _CreateNotePageState extends State<CreateNotePage> {
                 //   // _showSnackBar(context, formStatus.token);
                 // }
               },
-              child: Text('Note'),
+              child: Text(
+                'Submit',
+                style: TextStyle(fontSize: 20),
+              ),
             );
     });
-  }
-
-  void _showSnackBar(BuildContext context, String message) {
-    final snackBar = SnackBar(content: Text(message));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
