@@ -1,33 +1,217 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'note.g.dart';
 
+// @JsonSerializable()
+class Note {
+  int? ntsNoteOwnerType;
+  String? noteStatusCode;
+  bool? isDraftButtonVisible;
+  bool? isSubmitButtonVisible;
+  bool? isSubjectRequired;
+  bool? isSubjectEditable;
+  bool? isDescriptionRequired;
+  bool? isDescriptionEditable;
+  bool? isRequiredTextBoxDisplay1;
+  bool? isAssigneeAvailableTextBoxDisplay1;
+  bool? isRequiredDropdownDisplay1;
+  bool? isAssigneeAvailableDropdownDisplay1;
+  bool? isRequiredTextBoxDisplay2;
+  bool? isAssigneeAvailableTextBoxDisplay2;
+  bool? isRequiredDropdownDisplay2;
+  bool? isAssigneeAvailableDropdownDisplay2;
+  bool? isRequiredTextBoxDisplay3;
+  bool? isAssigneeAvailableTextBoxDisplay3;
+  bool? isRequiredDropdownDisplay3;
+  bool? isAssigneeAvailableDropdownDisplay3;
+  bool? isRequiredTextBoxDisplay4;
+  bool? isAssigneeAvailableTextBoxDisplay4;
+  bool? isRequiredDropdownDisplay4;
+  bool? isAssigneeAvailableDropdownDisplay4;
+  bool? isRequiredTextBoxDisplay5;
+  bool? isAssigneeAvailableTextBoxDisplay5;
+  bool? isRequiredDropdownDisplay5;
+  bool? isAssigneeAvailableDropdownDisplay5;
+  bool? isRequiredTextBoxDisplay6;
+  bool? isAssigneeAvailableTextBoxDisplay6;
+  bool? isRequiredDropdownDisplay6;
+  bool? isAssigneeAvailableDropdownDisplay6;
+  bool? isRequiredTextBoxDisplay7;
+  bool? isAssigneeAvailableTextBoxDisplay7;
+  bool? isRequiredDropdownDisplay7;
+  bool? isAssigneeAvailableDropdownDisplay7;
+  bool? isRequiredTextBoxDisplay8;
+  bool? isAssigneeAvailableTextBoxDisplay8;
+  bool? isRequiredDropdownDisplay8;
+  bool? isAssigneeAvailableDropdownDisplay8;
+  bool? isRequiredTextBoxDisplay9;
+  bool? isAssigneeAvailableTextBoxDisplay9;
+  bool? isRequiredDropdownDisplay9;
+  bool? isAssigneeAvailableDropdownDisplay9;
+  bool? isRequiredTextBoxDisplay10;
+  bool? isAssigneeAvailableTextBoxDisplay10;
+  bool? isRequiredDropdownDisplay10;
+  bool? isAssigneeAvailableDropdownDisplay10;
+  bool? draftButton;
+  bool? createNewVersionButton;
+  bool? saveNewVersionButton;
+  bool? saveButton;
+  bool? canViewVersions;
+  bool? saveChangesButton;
+  bool? completeButton;
+  bool? isCompleteReasonRequired;
+  bool? rejectButton;
+  bool? notApplicableButton;
+  bool? isLockVisible;
+  bool? isReleaseVisible;
+  bool? isNoteTeamOwner;
+  bool? isRejectionReasonRequired;
+  bool? returnButton;
+  bool? isReturnReasonRequired;
+  bool? delegateButton;
+  bool? isDelegateReasonRequired;
+  bool? cancelButton;
+  bool? isCancelReasonRequired;
+  bool? backButton;
+  bool? closeButton;
+  bool? canEditHeader;
+  String? ownerUserName;
+  String? requestedByUserName;
+  String? createdByUserName;
+  String? lastUpdatedByUserName;
+  String? noteStatusName;
+  String? statusClass;
+  String? noteNo;
+  String? noteSubject;
+  String? noteDescription;
+  String? templateCode;
+  DateTime? startDate;
+  DateTime? completedDate;
+  String? noteStatusId;
+  String? notePriorityId;
+  String? templateId;
+  String? noteTemplateId;
+  String? requestedByUserId;
+  String? ownerUserId;
+  bool? isVersioning;
+  String? id;
+  DateTime? createdDate;
+  String? createdBy;
+  DateTime? lastUpdatedDate;
+  String? lastUpdatedBy;
+  bool? isDeleted;
+  String? companyId;
+  int? dataAction;
+  int? status;
+  int? versionNo;
 
-class Note {//extends Equatable {
-   Note(
-      { this.id,
-       this.noteSubject,
-       this.noteDescription});
+  // Note(
+  //   this.ntsNoteOwnerType,
+  //   this.noteStatusCode,
+  //   this.isDraftButtonVisible,
+  //   this.isSubmitButtonVisible,
+  //   this.isSubjectRequired,
+  //   this.isSubjectEditable,
+  //   this.isDescriptionRequired,
+  //   this.isDescriptionEditable,
+  //   this.isRequiredTextBoxDisplay1,
+  //   this.isAssigneeAvailableTextBoxDisplay1,
+  //   this.isRequiredDropdownDisplay1,
+  //   this.isAssigneeAvailableDropdownDisplay1,
+  //   this.isRequiredTextBoxDisplay2,
+  //   this.isAssigneeAvailableTextBoxDisplay2,
+  //   this.isRequiredDropdownDisplay2,
+  //   this.isAssigneeAvailableDropdownDisplay2,
+  //   this.isRequiredTextBoxDisplay3,
+  //   this.isAssigneeAvailableTextBoxDisplay3,
+  //   this.isRequiredDropdownDisplay3,
+  //   this.isAssigneeAvailableDropdownDisplay3,
+  //   this.isRequiredTextBoxDisplay4,
+  //   this.isAssigneeAvailableTextBoxDisplay4,
+  //   this.isRequiredDropdownDisplay4,
+  //   this.isAssigneeAvailableDropdownDisplay4,
+  //   this.isRequiredTextBoxDisplay5,
+  //   this.isAssigneeAvailableTextBoxDisplay5,
+  //   this.isRequiredDropdownDisplay5,
+  //   this.isAssigneeAvailableDropdownDisplay5,
+  //   this.isRequiredTextBoxDisplay6,
+  //   this.isAssigneeAvailableTextBoxDisplay6,
+  //   this.isRequiredDropdownDisplay6,
+  //   this.isAssigneeAvailableDropdownDisplay6,
+  //   this.isRequiredTextBoxDisplay7,
+  //   this.isAssigneeAvailableTextBoxDisplay7,
+  //   this.isRequiredDropdownDisplay7,
+  //   this.isAssigneeAvailableDropdownDisplay7,
+  //   this.isRequiredTextBoxDisplay8,
+  //   this.isAssigneeAvailableTextBoxDisplay8,
+  //   this.isRequiredDropdownDisplay8,
+  //   this.isAssigneeAvailableDropdownDisplay8,
+  //   this.isRequiredTextBoxDisplay9,
+  //   this.isAssigneeAvailableTextBoxDisplay9,
+  //   this.isRequiredDropdownDisplay9,
+  //   this.isAssigneeAvailableDropdownDisplay9,
+  //   this.isRequiredTextBoxDisplay10,
+  //   this.isAssigneeAvailableTextBoxDisplay10,
+  //   this.isRequiredDropdownDisplay10,
+  //   this.isAssigneeAvailableDropdownDisplay10,
+  //   this.draftButton,
+  //   this.createNewVersionButton,
+  //   this.saveNewVersionButton,
+  //   this.saveButton,
+  //   this.canViewVersions,
+  //   this.saveChangesButton,
+  //   this.completeButton,
+  //   this.isCompleteReasonRequired,
+  //   this.rejectButton,
+  //   this.notApplicableButton,
+  //   this.isLockVisible,
+  //   this.isReleaseVisible,
+  //   this.isNoteTeamOwner,
+  //   this.isRejectionReasonRequired,
+  //   this.returnButton,
+  //   this.isReturnReasonRequired,
+  //   this.delegateButton,
+  //   this.isDelegateReasonRequired,
+  //   this.cancelButton,
+  //   this.isCancelReasonRequired,
+  //   this.backButton,
+  //   this.closeButton,
+  //   this.canEditHeader,
+  //   this.ownerUserName,
+  //   this.requestedByUserName,
+  //   this.createdByUserName,
+  //   this.lastUpdatedByUserName,
+  //   this.noteStatusName,
+  //   this.statusClass,
+  //   this.noteNo,
+  //   this.noteSubject,
+  //   this.noteDescription,
+  //   this.templateCode,
+  //   this.startDate,
+  //   this.completedDate,
+  //   this.noteStatusId,
+  //   this.notePriorityId,
+  //   this.templateId,
+  //   this.noteTemplateId,
+  //   this.requestedByUserId,
+  //   this.ownerUserId,
+  //   this.isVersioning,
+  //   this.id,
+  //   this.createdDate,
+  //   this.createdBy,
+  //   this.lastUpdatedDate,
+  //   this.lastUpdatedBy,
+  //   this.isDeleted,
+  //   this.companyId,
+  //   this.dataAction,
+  //   this.status,
+  //   this.versionNo,
+  // );
+  Note();
 
-   String? id;
-   String? noteSubject;
-   String? noteDescription;
-
-  // @override
-  // List<Object> get props => [id, noteSubject, noteDescription];
-
-  // Note();
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
   Map<String, dynamic> toJson() => _$NoteToJson(this);
-}
 
-Note _$NoteFromJson(Map<String, dynamic> json) {
-  return Note()
-    ..id = json["Id"]
-    ..noteSubject = json["NoteSubject"]
-    ..noteDescription = json["NoteDescription"];
+  Note toEntity() {
+    return Note();
+  }
 }
-
-Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
-      "Id": instance.id,
-      "NoteSubject": instance.noteSubject,
-      "NoteDescription": instance.noteDescription,
-    };
-    

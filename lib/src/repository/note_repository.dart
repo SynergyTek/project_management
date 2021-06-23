@@ -4,13 +4,18 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 abstract class NoteRepository {
-  Future<List<Note>> fetchNotes();
-  Future<http.Response> createNote(String noteSubject, String noteDescription);
+  /// Loads Note first from File storage. If they don't exist or encounter an
+  /// error, it attempts to load the Note from a Web Client.
+  Future<List<Note>> loadNote();
+
+  // Persists Note to local disk and the web
+  Future saveNote(Note notes);
 }
 
 class NoteRepositoryImpl implements NoteRepository {
+  const NoteRepositoryImpl();
   @override
-  Future<List<Note>> fetchNotes([int startIndex = 0]) async {
+  Future<List<Note>> loadNote([int startIndex = 0]) async {
     Uri url = Uri.parse(
         'https://webapidev.aitalkx.com/cms/NtsNote/ReadNoteDashBoardGridData?templateCode=MobileTestingNote');
     final response = await http.Client().get(url);
@@ -47,22 +52,21 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  Future<http.Response> createNote(
-      String noteSubject, String noteDescription) async {
+  Future saveNote(Note note) {
     // print('attempting login');
     // await Future.delayed(Duration(seconds: 3));
     // print('logged in');
     // throw Exception('failed log in');
+    Uri url =
+        Uri.parse('https://webapidev.aitalkx.com/cms/NtsNote/ManageNtsNote');
     var response = http.post(
-      Uri.parse('https://reqres.in/api/login'),
+      url,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      // body: jsonEncode(<String, String>{
-      //   "email": username, //"eve.holt@reqres.in",
-      //   "password": password //"cityslicka"
-      // }),
+      body: jsonEncode(note),
     );
+
     return response;
   }
 }

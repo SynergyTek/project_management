@@ -1,29 +1,26 @@
+import 'package:equatable/equatable.dart';
+import 'package:project_management/src/models/note.dart';
+
 import '../form_submission_status.dart';
 
-class CreateNoteState {
-  final String noteSubject;
-  bool get isValidSubject => noteSubject.length >= 1;
-
-  final String noteDescription;
-  bool get isValidDescription => noteDescription.length >= 1;
-
-  final FormSubmissionStatus? formStatus;
-
-  CreateNoteState({
-    this.noteSubject = '',
-    this.noteDescription = '',
-    this.formStatus = const InitialFormStatus(),
-  });
-
-  CreateNoteState copyWith({
-    String noteSubject = '',
-    String noteDescription = '',
-    FormSubmissionStatus? formStatus,
-  }) {
-    return CreateNoteState(
-      noteSubject: noteSubject, //?? this.noteSubject,
-      noteDescription: noteDescription, //?? this.noteDescription,
-      formStatus: formStatus, // ?? this.formStatus,
-    );
-  }
+abstract class CreateNoteState extends Equatable {
+ const CreateNoteState();
+@override
+  List<Object> get props => [];
 }
+  
+class CreateNoteLoadInProgress extends CreateNoteState {}
+
+class CreateNoteLoadSuccess extends CreateNoteState {
+  final Note note;
+
+  const CreateNoteLoadSuccess(this.note );
+
+  @override
+  List<Object> get props => [note];
+
+  @override
+  String toString() => 'CreateNoteLoadSuccess { CreateNote: $note }';
+}
+
+class CreateNoteLoadFailure extends CreateNoteState {}

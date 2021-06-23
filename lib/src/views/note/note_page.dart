@@ -17,12 +17,29 @@ class NotePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-                      context,
+          Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => CreateNotePage(
+                        builder: (context) {
+                          return CreateNotePage(
+                            // key: ArchSampleKeys.editTodoScreen,
+                            // onSave: (task, note) {
+                            //   BlocProvider.of<CreateNoteBloc>(context).add(
+                            //     NoteAdded(
+                            //       note.copyWith(task: task, note: note),
+                            //     ),
+                            //   );
+                            // },
+                            isEditing: false,
+                          );
+                        },
+                      ),
+                    );
+          // Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //                 builder: (context) => CreateNotePage(
                                
-                              )));
+          //                     )));
         },
         child: const Icon(Icons.navigation),
         backgroundColor: Colors.green,
